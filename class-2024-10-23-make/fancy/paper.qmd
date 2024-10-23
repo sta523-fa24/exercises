@@ -1,0 +1,30 @@
+---
+title: "Makefile Example"
+author: "Colin Rundel"
+date: "10/14/2021"
+format: 
+  html:
+    self-contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exploratory Data Analysis
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget turpis ante. Maecenas elit elit, sagittis in volutpat at, tincidunt et felis. Nullam augue tortor, semper vel sapien et, iaculis aliquet libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer id sapien vel quam sagittis viverra. Nunc quis est elementum, feugiat diam in, suscipit est. Cras sagittis mollis suscipit. Integer sed eleifend dui.
+
+Mauris id neque vel metus sollicitudin molestie. Vestibulum rutrum, arcu eget accumsan imperdiet, quam est convallis lectus, consectetur iaculis nisi arcu quis velit. Duis velit ipsum, consectetur eu ullamcorper nec, egestas non ipsum. Quisque ullamcorper, felis eget vulputate convallis, ante ante luctus est, sit amet sagittis ante ipsum pretium orci. Aenean sed enim ante. Nullam elementum et tortor at gravida. Praesent tempus lectus tempus laoreet aliquet. Curabitur vel est eros. Duis enim nulla, porttitor eu diam sit amet, porttitor consectetur magna. Phasellus pretium mi nisl, fermentum mollis risus rhoncus at. In sit amet lorem vel lectus bibendum elementum et vitae diam. Maecenas magna sapien, dapibus ut erat quis, ornare pharetra sapien. Integer risus est, egestas id eleifend non, vehicula et metus. Proin eu finibus nulla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras faucibus leo non massa vehicula scelerisque.
+
+```{r eda, out.width="100%"}
+knitr::include_graphics("fig1/fig.png")
+```
+
+## Modelling
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed nunc nec quam gravida rutrum. Sed semper posuere elit sed faucibus. Pellentesque ac tortor suscipit, posuere mauris eu, volutpat sem. Quisque dictum est et ex porta, eget dictum neque convallis. Integer vitae est egestas, pharetra odio non, condimentum nibh. Proin enim tortor, consequat quis fringilla ut, malesuada at turpis. Fusce vel pharetra arcu. Nullam rutrum ut ante sit amet efficitur. Curabitur vitae odio urna. Praesent consectetur semper dolor ac porta.
+
+```{r pressure, echo=FALSE, out.width="66%", fig.align="center"}
+knitr::include_graphics("fig2/fig.png")
+```
