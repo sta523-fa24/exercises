@@ -43,25 +43,6 @@ server = function(input, output, session) {
       need(input$a >= 0, "Number of prior heads needs to be 0 or greater"),
       need(input$b >= 0, "Number of prior tails needs to be 0 or greater")
     )
-    
-    
-    
-    output$plot = renderPlot({
-      ggplot(d(), aes(x=p, y=density, color = distribution)) +
-        geom_line(size=1.5)
-    })
-    
-    output$table = renderTable({
-      d() |>
-        group_by(distribution) |>
-        summarize(
-          mean = sum(p*density) / n(),
-          median = p[(cumsum(density/n())) >= 0.5][1],
-          q025 = p[(cumsum(density/n())) >= 0.025][1],
-          q975 = p[(cumsum(density/n())) >= 0.975][1],
-        )
-    })
-    
     d = tibble(
       p = seq(0, 1, length.out = 1001) 
     ) |>
@@ -79,10 +60,27 @@ server = function(input, output, session) {
         distribution = forcats::as_factor(distribution)
       )
     
-    print(d)
-    
     d
   })
+  
+  output$plot = renderPlot({
+    ggplot(d(), aes(x=p, y=density, color = distribution)) +
+      geom_line(size=1.5) +
+      geom_ribbon(aes(ymax=density, fill=distribution), ymin=0, alpha=0.5)
+  })
+  
+  output$table = renderTable({
+    d() |>
+      group_by(distribution) |>
+      summarize(
+        mean = sum(p*density) / n(),
+        median = p[(cumsum(density/n())) >= 0.5][1],
+        q025 = p[(cumsum(density/n())) >= 0.025][1],
+        q975 = p[(cumsum(density/n())) >= 0.975][1],
+      )
+  })
+  
+  
   
 }
 
