@@ -30,8 +30,9 @@ g
 
 # Bootstrap
 
-n_rep = 500
+n_rep = 1000
 
+system.time({
 bs = purrr::map_dfr(
   seq_len(n_rep),
   function(i) {
@@ -52,6 +53,7 @@ bs = purrr::map_dfr(
     bs_upp = quantile(pred, probs = 0.975),
     .groups = "drop"
   )
+})
 
 g +
   geom_ribbon(
@@ -63,4 +65,38 @@ g +
 
 # Multisession Bootstrap
 
-future::plan(future::multisession)
+future::plan(future::multisession(workers=16))
+
+
+n_rep = 10000
+
+system.time({
+  #bs = purrr::map_dfr(
+  bs = furrr::future_map_dfr(
+    seq_len(n_rep),
+    function(i) {
+      d |>
+        select(x, y) |>
+        slice_sample(prop = 1, replace = TRUE) |>
+        ( \(df) {
+          mutate(
+            df, iter = i,
+            pred = loess(y ~ x, data = df) |> predict()
+          )
+        })()
+    }
+  ) |>
+    group_by(x, y) |>
+    summarize(
+      bs_low = quantile(pred, probs = 0.025),
+      bs_upp = quantile(pred, probs = 0.975),
+      .groups = "drop"
+    )
+})
+
+g +
+  geom_ribbon(
+    data = bs,
+    aes(ymin = bs_low, ymax = bs_upp),
+    color = "blue", alpha = 0.25
+  )
